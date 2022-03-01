@@ -1,0 +1,20 @@
+.container  > h1{
+    font-size: 5rem;
+}
+
+@media (max-width: 780px){
+    .container > h1{
+        font-size: 3rem;
+    }
+}
+
+a{
+    text-decoration: none !important;
+}
+
+@media only screen and (max-width: 750px){
+    .row > .card{
+        width: 100%;
+        margin: 10px auto !important;
+    }
+}

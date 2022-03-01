@@ -1,0 +1,12 @@
+body{
+    background-color: #0b0d12 !important;
+}
+
+#nav-logo{
+    width: 300px;
+}
+
+.nav-item{
+    font-size: 2rem;
+    text-align: center;
+}
