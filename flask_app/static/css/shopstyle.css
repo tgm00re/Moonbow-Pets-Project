@@ -8,6 +8,11 @@
     }
 }
 
+
+.card-img-top{
+    height: 250px;
+    max-width: 250px;
+}
 a{
     text-decoration: none !important;
 }
