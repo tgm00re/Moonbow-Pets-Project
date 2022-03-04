@@ -13,7 +13,7 @@
 <body class="text-light">
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-    <a class="navbar-brand" href="/home"><img src="../static/images/logo.png" alt="MoonBow Pets Logo" id="nav-logo"></a>
+    <a class="navbar-brand" href="/home"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="MoonBow Pets Logo" id="nav-logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
         
         <div class="row d-flex">
             <button class="card m-3" data-bs-toggle="modal" data-bs-target="#antModal">
-                    <img class="card-img-top" src="../static/images/ant.webp" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/ant.webp') }}" alt="Card image cap">
             </button>
             <div class="modal fade" id="antModal" tabindex="-1" aria-labelledby="antModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -56,7 +56,7 @@
                 </div>
               </div>
             <button class="card m-3" data-bs-toggle="modal" data-bs-target="#catModal">
-                <img class="card-img-top" src="../static/images/cat.webp" alt="Cat">
+                <img class="card-img-top" src="{{ url_for('static', filename='images/cat.webp') }}" alt="Cat">
             </button>
             <div class="modal fade" id="catModal" tabindex="-1" aria-labelledby="catModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -76,7 +76,7 @@
             </div>
           </div>
           <button class="card m-3" data-bs-toggle="modal" data-bs-target="#cricketModal">
-            <img class="card-img-top" src="../static/images/cricket.webp" alt="Scorpion">
+            <img class="card-img-top" src="{{ url_for('static', filename='images/cricket.webp') }}" alt="Scorpion">
         </button>
         <div class="modal fade" id="cricketModal" tabindex="-1" aria-labelledby="cricketModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -96,7 +96,7 @@
         </div>
       </div>
       <button class="card m-3" data-bs-toggle="modal" data-bs-target="#scorpionModal">
-        <img class="card-img-top" src="../static/images/scorpion.webp" alt="sloth">
+        <img class="card-img-top" src="{{ url_for('static', filename='images/scorpion.webp') }}" alt="sloth">
     </button>
     <div class="modal fade" id="scorpionModal" tabindex="-1" aria-labelledby="scorpionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -116,7 +116,7 @@
     </div>
     </div>
       <button class="card m-3" data-bs-toggle="modal" data-bs-target="#sealModal">
-        <img class="card-img-top" src="../static/images/seal.webp" alt="seal">
+        <img class="card-img-top" src="{{ url_for('static', filename='images/seal.webp') }}" alt="seal">
     </button>
     <div class="modal fade" id="sealModal" tabindex="-1" aria-labelledby="sealModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -136,7 +136,7 @@
     </div>
   </div>
   <button class="card m-3" data-bs-toggle="modal" data-bs-target="#slothModal">
-    <img class="card-img-top" src="../static/images/sloth.webp" alt="sloth">
+    <img class="card-img-top" src="{{ url_for('static', filename='images/sloth.webp') }}" alt="sloth">
 </button>
 <div class="modal fade" id="slothModal" tabindex="-1" aria-labelledby="slothModalLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -155,7 +155,7 @@
 </div>
 </div>
 <button class="card m-3" data-bs-toggle="modal" data-bs-target="#tigerModal">
-    <img class="card-img-top" src="../static/images/tiger.webp" alt="tiger">
+    <img class="card-img-top" src="{{ url_for('static', filename='images/tiger.webp') }}" alt="tiger">
 </button>
 <div class="modal fade" id="tigerModal" tabindex="-1" aria-labelledby="tigerModalLabel" aria-hidden="true">
 <div class="modal-dialog">

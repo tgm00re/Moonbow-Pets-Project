@@ -5,14 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-                    
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homestyle.css') }}">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body class="text-light">
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-    <a class="navbar-brand" href="/home"><img src="../static/images/logo.png" alt="MoonBow Pets Logo" id="nav-logo"></a>
+    <a class="navbar-brand" href="/home"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="MoonBow Pets Logo" id="nav-logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,17 +40,23 @@
               <table class="table table-dark">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>View Profile | Delete Friend<o/td>
-                  </tr>
+            
+                      {% for friend in userFriends %}
+                    {% if friend.username != None %}
+                        <tr>
+                            <td>{{friend.username}}</td>
+                            <td>
+                                <a href="/view_profile/{{friend.id}}">View</a> |
+                                <a href="/remove_friendship/{{friend.id}}">Remove Friend</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                  {% endfor %}
                 </tbody>
               </table>
             </li>
@@ -63,6 +71,42 @@
           <ul class="list-group list-dark">
             <li class="list-group-item-dark"><h2>Pet Gallery</h2></li>
             <li class="list-group-item-dark">
+              <div class="row d-flex justify-content-center">
+              {% for pet in userPets %}
+        {% if pet.type != None %}
+        <div class="card m-3" style="background-color: black !important; width: 250px !important; height: 450px !important; color: white !important;">
+            {% if pet.type == 'tiger' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/tiger.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'scorpion' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/scorpion.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'cat' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/cat.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'ant' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/ant.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'seal' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/seal.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'cricket' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/cricket.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'sloth' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/sloth.webp') }}" alt="Card image cap">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{pet.name}}</h5>
+                <p class="card-text">Level: {{pet.level}}</p>
+                <p class="card-text">Description: {{pet.description}}</p>
+                <p class="card-text">Type: {{pet.type}}</p>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% endfor %}
+      </div>
             </li>
             <li class="list-group-item-dark"><a href="/display" class="text-primary">See All of the MoonBow Pets</a></li>
           </ul>
@@ -75,20 +119,18 @@
           <ul class="list-group list-dark">
             <li class="list-group-item-dark"><h2>Account Information</h2></li>
             <li class="list-group-item-dark p-1">
-              <p>First Name:</p>
-              <p>Last Name: </p>
-              <p>Username: </p>
-              <p>Email: </p>
-              <p>Total Pet Level:</p>
+              <p>First Name: {{user.first_name}}</p>
+              <p>Last Name: {{user.last_name}}</p>
+              <p>Username: {{user.username}}</p>
+              <p>Email: {{user.email}}</p>
             </li>
-            <li class="list-group-item-dark">Add buttons to edit in the future?</li>
           </ul>
         </div>
         <div class="col-lg-6">
           <ul class="list-group list-dark">
             <li class="list-group-item-dark"><h2>Account Balance</h2></li>
             <li class="list-group-item-dark">
-              <h3>$0.00 - example value</h3>
+              <h3>${{user.funds}}</h3>
             </li>
             <li class="list-group-item-dark"><a href="/add_funds" class="text-primary">Add Funds</a></li>
           </ul>

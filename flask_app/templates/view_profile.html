@@ -13,7 +13,7 @@
 <body class="text-light">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-    <a class="navbar-brand" href="/home"><img src="../static/images/logo.png" alt="MoonBow Pets Logo" id="nav-logo"></a>
+    <a class="navbar-brand" href="/home"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="MoonBow Pets Logo" id="nav-logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,51 +32,86 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-sm-3">
-            <h1 style="font-size: 4rem;">Jerry</h1>
+            <h1 style="font-size: 4rem;">{{user.username}}</h1>
         </div>
+        <div class="col-sm-1"></div>
         <div class="col-sm-3">
-            <button class="btn-lg btn-primary mt-4 w-75"><a href="#" style="text-decoration: none;" class="text-light">Add Jerry</a></button>
+            {% if user.id in friendshipList %}
+                <button class="btn-lg btn-danger mt-4 w-75"><a href="/remove_friendship/{{user.id}}" style="text-decoration: none;" class="text-light">Remove {{user.username}}</a></button>
+            {% else %}
+            <button class="btn-lg btn-primary mt-4 w-75"><a href="/add_friendship/{{user.id}}" style="text-decoration: none;" class="text-light">Add {{user.username}}</a></button>
+            {% endif %}
         </div>
-        <div class="col-sm-3 mt-4">
-            <h2>Total Pet Level: 80</h2>
+      <div class="col-sm-2 mt-4">
+
         </div>
         <div class="col-sm-3 mt-4">
             <table class="table table-dark">
-                <h2>Jerry's Friends</h2>
+                <h2>{{user.username}}'s Friends</h2>
                 <thead>
+                    
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>View Profile | Add/Remove<o/td>
-                  </tr>
+                    {% for friend in friendFriends %}
+                    {% if friend.id != session['user_id'] and friend.username != None %}
+                        <tr>
+                            <td>{{friend.username}}</td>
+                            <td>
+                                <a href="/view_profile/{{friend.id}}">View</a> |
+                                {% if friend.id in friendshipList %}
+                                    <a href="/remove_friendship/{{friend.id}}">Remove Friend</a>
+                                {% else %}
+                                    <a href="/add_friendship/{{friend.id}}">Add Friend</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                
                 </tbody>
               </table>
         </div>
     </div>
     <div class="row d-flex">
-        <h2>Jerry's pets: (change to be modals, so you can click to see levels</h2>
-        <div class="card m-3">
-            <img class="card-img-top" src="../static/images/ant.webp" alt="Card image cap">
+        <h2>Jerry's pets:</h2>
+        {% for pet in friendPets %}
+        {% if pet.type != None %}
+        <div class="card m-3" style="background-color: black !important; width: 250px !important; height: 450px !important; color: white !important;">
+            {% if pet.type == 'tiger' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/tiger.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'scorpion' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/scorpion.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'cat' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/cat.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'ant' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/ant.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'seal' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/seal.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'cricket' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/cricket.webp') }}" alt="Card image cap">
+            {% endif %}
+            {% if pet.type == 'sloth' %}
+            <img class="card-img-top" src="{{ url_for('static', filename='images/sloth.webp') }}" alt="Card image cap">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{pet.name}}</h5>
+                <p class="card-text">Level: {{pet.level}}</p>
+                <p class="card-text">Description: {{pet.description}}</p>
+                <p class="card-text">Type: {{pet.type}}</p>
+            </div>
         </div>
-        <div class="card m-3">
-            <img class="card-img-top" src="../static/images/cat.webp" alt="Card image cap">
-        </div>
-        <div class="card m-3">
-            <img class="card-img-top" src="../static/images/cricket.webp" alt="Card image cap">
-        </div>
-        <div class="card m-3">
-            <img class="card-img-top" src="../static/images/scorpion.webp" alt="Card image cap">
-        </div>
-        <div class="card m-3">
-            <img class="card-img-top" src="../static/images/seal.webp" alt="Card image cap">
-        </div>
+        {% endif %}
+        
+        {% endfor %}
     </div>
     
 </div>

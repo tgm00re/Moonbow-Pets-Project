@@ -13,7 +13,7 @@
 <body class="text-light">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-    <a class="navbar-brand" href="/home"><img src="../static/images/logo.png" alt="MoonBow Pets Logo" id="nav-logo"></a>
+    <a class="navbar-brand" href="/home"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="MoonBow Pets Logo" id="nav-logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -49,7 +49,7 @@
                         <tr>
                             <td>{{user.username}}</td>
                             <td><a href="/view_profile/{{user.id}}">View</a> |
-                                {% if user.id in matchingUsers %}
+                                {% if user.id in friendshipList %}
                                     <a href="/remove_friendship/{{user.id}}">Remove Friend</a>
                                 {% else %}
                                 <a href="/add_friendship/{{user.id}}">Add Friend</a>

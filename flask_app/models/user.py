@@ -1,5 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
+from flask_app.controllers.friendship_controller import search
 from flask_app.models.pet import Pet
 import re
 
@@ -19,6 +20,7 @@ class User:
         self.biograhy = data['biography']
         self.funds = data['funds']
         self.pets = []
+        self.friends = []
     
 
     #Utility - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -61,9 +63,11 @@ class User:
         return users
 
     @classmethod
-    def get_all_pets(cls, data):
+    def get_all_pets(cls, data): 
         query = "SELECT * FROM users LEFT JOIN pets ON users.id = pets.owner_id WHERE users.id = %(id)s;"
+        print("Running Query")
         results = connectToMySQL('moonbowpets').query_db(query, data)
+        print("Results")
         user = cls( results[0] )
 
         for row_from_db in results:
@@ -76,6 +80,8 @@ class User:
                 "created_at": row_from_db['pets.created_at'],
                 "updated_at": row_from_db['pets.updated_at']
             }
+            user.pets.append( Pet(pet_data) )
+        return user
 
     @classmethod
     def get_by_email(cls, data):
@@ -99,14 +105,43 @@ class User:
 
     @classmethod
     def search_name(cls, data):
-        searchdata = {'search': "%" + data['name'] + "%"}
         query = "SELECT * FROM users WHERE username LIKE %(search)s;"
+        searchdata = {'search': "%%" + data['name'] + "%%"}
         results = connectToMySQL('moonbowpets').query_db(query, searchdata)
+        print("Printing results")
+        print(results)
         users = []
 
         for user in results:
             users.append( cls(user) )
         return users
+
+    @classmethod
+    def get_user_with_friends(cls, data): #returns single user with a list of friends
+        query = "SELECT * FROM users LEFT JOIN friendship ON users.id = friendship.user_id LEFT JOIN users as users2 ON friendship.friend_id = users2.id WHERE users.id = %(id)s;"
+        results = connectToMySQL('moonbowpets').query_db(query, data)
+        print("Printing results")
+        print(results)
+        user = cls( results[0] )
+        print("printing user")
+        print(user)
+
+        for row_from_db in results:
+            friend_data = {
+                "id": row_from_db['users2.id'],
+                "first_name": row_from_db['users2.first_name'],
+                "last_name": row_from_db['users2.last_name'],
+                "username": row_from_db['users2.username'],
+                "email": row_from_db['users2.email'],
+                "password": row_from_db['users2.password'],
+                "created_at": row_from_db['users2.created_at'],
+                "updated_at": row_from_db['users2.updated_at'],
+                "biography": row_from_db['users2.biography'],
+                "funds": row_from_db["users2.funds"]
+            }
+            user.friends.append( cls(friend_data) )
+        return user
+    
     
     #purchase methods - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     
@@ -307,6 +342,11 @@ class User:
         petResult = connectToMySQL('moonbowpets').query_db(addPetQuery, petData)
         return True #Purchase success
 
+
+    @classmethod
+    def add_funds(cls, data): #takes in a data dictionary of both the newbalance and the user's id
+        query = "UPDATE users SET funds=%(newBalance)s WHERE id = %(id)s;"
+        return connectToMySQL('moonbowpets').query_db(query, data)
     
         
 
@@ -340,7 +380,7 @@ class User:
     
     @staticmethod
     def hasEnoughFunds(balance, price):
-        if balance >= balance:
+        if balance >= price:
             return True
         return False
         

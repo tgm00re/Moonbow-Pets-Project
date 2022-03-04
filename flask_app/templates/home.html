@@ -16,7 +16,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-        <a class="navbar-brand" href="/home"><img src="../static/images/logo.png" alt="MoonBow Pets Logo" id="nav-logo"></a>
+        <a class="navbar-brand" href="/home"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="MoonBow Pets Logo" id="nav-logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,16 +46,12 @@
                             href="/logout">Logout</a>
                 </li>
                 {% endif %}
-                <li class="nav-item active">
-                    <a class="nav-link text-light"
-                            href="/view_profile">View Profile(deletethis)</a>
-                </li>
             </ul>
         </div>
     </nav>
 
     <div class="container-fluid main">
-        <img src="../static/images/logo.png" alt="MoonBow Pets Logo" id="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="MoonBow Pets Logo" id="logo">
     </div>
 
     <div class="divider"></div>
@@ -71,19 +67,19 @@
             </div>
             <div class="row d-flex justify-content-start">
                 <div class="card m-3">
-                    <img class="card-img-top" src="../static/images/ant.webp" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/ant.webp') }}" alt="Card image cap">
                 </div>
                 <div class="card m-3">
-                    <img class="card-img-top" src="../static/images/cat.webp" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/cat.webp') }}" alt="Card image cap">
                 </div>
                 <div class="card m-3">
-                    <img class="card-img-top" src="../static/images/cricket.webp" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/cricket.webp') }}" alt="Card image cap">
                 </div>
                 <div class="card m-3">
-                    <img class="card-img-top" src="../static/images/scorpion.webp" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/scorpion.webp') }}" alt="Card image cap">
                 </div>
                 <div class="card m-3">
-                    <img class="card-img-top" src="../static/images/seal.webp" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/seal.webp') }}" alt="Card image cap">
                 </div>
             </div>
             <div class="row">

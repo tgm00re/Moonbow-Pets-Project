@@ -4,6 +4,7 @@ from flask import flash, session, render_template, request, redirect, jsonify
 from flask_app.models import user
 from flask_bcrypt import Bcrypt
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.models import friendship
 
 bcrypt = Bcrypt(app)
 
@@ -19,6 +20,8 @@ def home():
 
 @app.route('/login')
 def login():
+    if 'user_id' in session:
+        return redirect('/home')
     return render_template('login.html')
 
 @app.route('/logout')
@@ -42,6 +45,8 @@ def login_form():
 
 @app.route('/register')
 def register():
+    if 'user_id' in session:
+        return redirect('/home')
     return render_template('register.html')
 
     
@@ -74,19 +79,46 @@ def register_form():
 def dashboard():
     if 'user_id' not in session:
         return redirect('/home')
-    return render_template('dashboard.html')
+    data = {
+        "id": session['user_id']
+    }
+    the_user = user.User.get_single(data)
+    userFriends = user.User.get_user_with_friends(data).friends
+    userPets = user.User.get_all_pets(data).pets #returns the user's list of pets
+    return render_template('dashboard.html', user=the_user, userFriends=userFriends, userPets=userPets)
 
 @app.route('/shop')
 def shop():
     if 'user_id' not in session:
         return redirect('/home')
-    return render_template('shop.html')
+    idData = {
+        "id": session['user_id']
+    }
+    userBalance = user.User.get_single(idData).funds
+    return render_template('shop.html', userBalance=userBalance)
 
 @app.route('/add_funds')
 def add_funds():
     if 'user_id' not in session:
         return redirect('/home')
-    return render_template("addfunds.html")
+    idData = {
+        "id": session['user_id']
+    }
+    userBalance = user.User.get_single(idData).funds
+    return render_template("addfunds.html", userBalance=userBalance)
+
+@app.route('/add_funds_form', methods=['POST'])
+def add_funds_form():
+    if 'user_id' not in session:
+        return redirect('/home')
+    idData = {"id": session['user_id']}
+    userBalance = user.User.get_single(idData).funds
+    data = {
+        "id": session['user_id'],
+        "newBalance": userBalance + int(request.form['amount'])
+    }
+    user.User.add_funds(data)
+    return redirect('/shop')
 
 @app.route('/view_profile/<int:id>')
 def view_profile(id):
@@ -96,7 +128,13 @@ def view_profile(id):
         "id": id
     }
     the_user = user.User.get_single(data)
-    return render_template('view_profile.html', user=the_user)
+    #Get friendships of the SESSION USER
+    getFriendshipsData = {"id": session['user_id']}
+    friendshipList = friendship.Friendship.get_friendships(getFriendshipsData)
+    #Get the the user that you are VIEWING's list of friends and their pets. *** ** * ** * * ** ** * * ** * * ** * * * * ** * *
+    friendPets = user.User.get_all_pets(data).pets #returns the user's list of pets
+    friendFriends = user.User.get_user_with_friends(data).friends #Returns the user
+    return render_template('view_profile.html', user=the_user, friendshipList=friendshipList, friendFriends=friendFriends, friendPets=friendPets)
 
 @app.route('/display')
 def display():

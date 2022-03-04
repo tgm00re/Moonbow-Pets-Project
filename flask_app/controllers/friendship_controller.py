@@ -27,20 +27,23 @@ def search():
 @app.route('/add_friendship/<int:friend_id>')
 def add_friendship(friend_id):
     if 'user_id' not in session:
+        print("Sorry, user was not logged in")
         return redirect('/home')
     data = {
         "id": session['user_id'],
         "friend_id": friend_id
     }
     if friendship.Friendship.friendshipExists(data): #Friendship already exists
+        print("sory friendships existed :C")
         return redirect('/')
     #Friendship didn't already exist:
     friendship.Friendship.save(data)
-    return redirect(f'/view_profile/{data.friend_id}')
+    return redirect(f'/view_profile/{friend_id}')
 
 @app.route('/remove_friendship/<int:friend_id>')
 def remove_friendship(friend_id):
     if 'user_id' not in session:
+        print('sorry, user id was not in session B(')
         return redirect('/home')
     data = {
         "id": session['user_id'],

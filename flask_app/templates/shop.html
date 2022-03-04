@@ -16,7 +16,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-        <a class="navbar-brand" href="/home"><img src="../static/images/logo.png" alt="MoonBow Pets Logo" id="nav-logo"></a>
+        <a class="navbar-brand" href="/home"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="MoonBow Pets Logo" id="nav-logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
                 </li>
                 <li class="nav-item">
                     <span class="nav-link text-light"
-                            href="#" style="margin-right: 20px;">Your Balance: $</span>
+                            href="#" style="margin-right: 20px;">Your Balance: ${{userBalance}}</span>
                 </li>
                 <li class="nav-item">
                     <button class="btn btn-light"><a class="nav-link text-dark" href="/add_funds">Add Funds</a></button>
@@ -46,11 +46,8 @@
                     <img class="card-img-top" style="width: 18rem;" src="{{ url_for('static', filename='images/ant.webp') }}" alt="Card image cap">
                     <div class="card-body bg-light text-dark" style="background-color: white !important;">
                       <p class="card-text">
-                          Name: <br>
-                          Description: <br>
-                          Price: <br>
-                          Type: <br>
-                          <button class="btn btn-dark mt-4 w-100"><a href="#" class="text-light">Purchase</a></button>
+                          Price: $50<br>
+                          <button class="btn btn-dark mt-4 w-100"><a href="/purchase_ant" class="text-light">Purchase</a></button>
                       </p>
                     </div>
                 </div>
@@ -59,11 +56,8 @@
                     <img class="card-img-top" style="width: 18rem;" src="{{ url_for('static', filename='images/tiger.webp') }}" alt="Card image cap">
                     <div class="card-body bg-light text-dark" style="background-color: white !important;">
                       <p class="card-text">
-                          Name: <br>
-                          Description: <br>
-                          Price: <br>
-                          Type: <br>
-                          <button class="btn btn-dark mt-4 w-100"><a href="#" class="text-light">Purchase</a></button>
+                          Price: $50<br>
+                          <button class="btn btn-dark mt-4 w-100"><a href="/purchase_tiger" class="text-light">Purchase</a></button>
                       </p>
                     </div>
                 </div>
@@ -72,11 +66,8 @@
                     <img class="card-img-top" style="width: 18rem;" src="{{ url_for('static', filename='images/seal.webp') }}" alt="Card image cap">
                     <div class="card-body bg-light text-dark" style="background-color: white !important;">
                       <p class="card-text">
-                          Name: <br>
-                          Description: <br>
-                          Price: <br>
-                          Type: <br>
-                          <button class="btn btn-dark mt-4 w-100"><a href="#" class="text-light">Purchase</a></button>
+                          Price: $25<br>
+                          <button class="btn btn-dark mt-4 w-100"><a href="/purchase_seal" class="text-light">Purchase</a></button>
                       </p>
                     </div>
                 </div>
@@ -85,11 +76,8 @@
                     <img class="card-img-top" style="width: 18rem;" src="{{ url_for('static', filename='images/cricket.webp') }}" alt="Card image cap">
                     <div class="card-body bg-light text-dark" style="background-color: white !important;">
                       <p class="card-text">
-                          Name: <br>
-                          Description: <br>
-                          Price: <br>
-                          Type: <br>
-                          <button class="btn btn-dark mt-4 w-100"><a href="#" class="text-light">Purchase</a></button>
+                          Price: $50<br>
+                          <button class="btn btn-dark mt-4 w-100"><a href="/purchase_cricket" class="text-light">Purchase</a></button>
                       </p>
                     </div>
                 </div>

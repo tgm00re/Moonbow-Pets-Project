@@ -16,7 +16,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-        <a class="navbar-brand" href="/home"><img src="../static/images/logo.png" alt="MoonBow Pets Logo" id="nav-logo"></a>
+        <a class="navbar-brand" href="/home"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="MoonBow Pets Logo" id="nav-logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,7 @@
 
                 <li class="nav-item">
                     <span class="nav-link text-light"
-                            style="margin-right: 20px;">Your Balance: $<span>
+                            style="margin-right: 20px;">Your Balance: ${{userBalance}}<span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light"
@@ -40,9 +40,9 @@
     <div class="container text-light text-center mt-5">
         <h1>Hey, {{session['user_first']}}!</h1>
         <h2 class='mt-3'>How many funds would you like to add?</h2>
-        <form>
+        <form action='/add_funds_form' method="post">
             <div class="mb-3 mt-3">
-                <input type="number" name="funds_amount" class="w-50" id="funds_amount" placeholder="Enter fund amount here (1-100)" min="1" max="100">
+                <input type="number" name="amount" class="w-50" id="funds_amount" placeholder="Enter fund amount here (1-100)" min="1" max="100">
               </div>
               <button type="submit" class="btn btn-primary">Add Funds!</button>
         </form>
