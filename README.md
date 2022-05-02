@@ -1,5 +1,8 @@
 # Moonbow-Pets-Project!
 
+
+Created website from scratch that includes login/registration, connects to a SQL database, allows users to purchase, view, and manage virtual pets, and allows users to add friends and view their profiles and pets.
+
 While the website did not follow this exactly, this was the initial wireframe for the site.
 
 ![moonbowpetswireframe](https://user-images.githubusercontent.com/94810636/166323126-3392b62d-f8e3-4d84-872c-8e3762d337d0.png)
@@ -56,6 +59,17 @@ Shop
 Add Funds
 
 ![Screen Shot 2022-05-02 at 4 51 21 PM](https://user-images.githubusercontent.com/94810636/166325829-98205256-5bd4-4331-ab03-58c7139c0d76.png)
+
+
+Friend Search
+
+![Screen Shot 2022-05-02 at 5 08 01 PM](https://user-images.githubusercontent.com/94810636/166328002-4279b482-2bcb-48d7-bb26-53c4987ec582.png)
+
+
+View Profile Page (View other user's)
+
+
+![Screen Shot 2022-05-02 at 5 08 43 PM](https://user-images.githubusercontent.com/94810636/166328091-d6fe0a80-f06b-4e84-a8b4-27782e0ee222.png)
 
 
 
